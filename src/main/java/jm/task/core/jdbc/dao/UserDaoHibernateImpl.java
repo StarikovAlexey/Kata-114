@@ -6,12 +6,10 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import javax.persistence.Query;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-    private static Session session;
     List<User> userList = new ArrayList<>();
 
 
