@@ -5,6 +5,7 @@ import jm.task.core.jdbc.util.Util;
 import org.hibernate.Session;
 
 import javax.persistence.Query;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,32 +21,32 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
-        session = Util.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.createSQLQuery("CREATE TABLE IF NOT EXISTS users(ID int NOT NULL AUTO_INCREMENT,PRIMARY KEY (ID), " +
-                "name varchar(255), lastname varchar(255), age tinyint);").executeUpdate();
-        session.close();
+        try (Session session = Util.getSessionFactory().openSession()){
+            session.beginTransaction();
+            session.createSQLQuery("CREATE TABLE IF NOT EXISTS users(ID int NOT NULL AUTO_INCREMENT,PRIMARY KEY (ID), " +
+                    "name varchar(255), lastname varchar(255), age tinyint);").executeUpdate();
+        }
     }
 
     @Override
     public void dropUsersTable() {
-        session = Util.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.createSQLQuery("DROP TABLE IF  EXISTS  users;").executeUpdate();
-        session.close();
+        try (Session session = Util.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            session.createSQLQuery("DROP TABLE IF  EXISTS  users;").executeUpdate();
+        }
     }
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
-        session = Util.getSessionFactory().openSession();
-        session.beginTransaction();
-        User user = new User();
-        user.setName(name);
-        user.setLastName(lastName);
-        user.setAge(age);
-        session.save(user);
-        System.out.println("User с именем – " + name + " добавлен в базу данных");
-        session.close();
+        try (Session session = Util.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            User user = new User();
+            user.setName(name);
+            user.setLastName(lastName);
+            user.setAge(age);
+            session.save(user);
+            System.out.println("User с именем – " + name + " добавлен в базу данных");
+        }
     }
 
     @Override
@@ -55,19 +56,18 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        session = Util.getSessionFactory().openSession();
-        Query query = session.createQuery("from User");
-        userList = query.getResultList();
-        userList.forEach(x -> System.out.println(x.toString()));
-        session.close();
-        return userList;
+        try (Session session = Util.getSessionFactory().openSession()) {
+            Query query = session.createQuery("from User");
+            userList = query.getResultList();
+            userList.forEach(x -> System.out.println(x.toString()));
+        } return userList;
     }
 
     @Override
     public void cleanUsersTable() {
-        session = Util.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.createQuery("delete User").executeUpdate();
-        session.close();
+        try (Session session = Util.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            session.createQuery("delete User").executeUpdate();
+        }
     }
 }
