@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-    List<User> userList = new ArrayList<>();
+    private List<User> userList = new ArrayList<>();
 
 
     public UserDaoHibernateImpl() {

@@ -7,18 +7,16 @@ import java.util.List;
 
 
 public class UserServiceImpl implements UserService {
+    UserDaoHibernateImpl userDaoHibernateImpl = new UserDaoHibernateImpl();
     public void createUsersTable() {
-        UserDaoHibernateImpl userDaoHibernateImpl = new UserDaoHibernateImpl();
         userDaoHibernateImpl.createUsersTable();
     }
 
     public void dropUsersTable() {
-        UserDaoHibernateImpl userDaoHibernateImpl = new UserDaoHibernateImpl();
         userDaoHibernateImpl.dropUsersTable();
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        UserDaoHibernateImpl userDaoHibernateImpl = new UserDaoHibernateImpl();
         userDaoHibernateImpl.saveUser(name, lastName, age);
     }
 
@@ -26,12 +24,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<User> getAllUsers() {
-        UserDaoHibernateImpl userDaoHibernateImpl = new UserDaoHibernateImpl();
         return userDaoHibernateImpl.getAllUsers();
     }
 
     public void cleanUsersTable() {
-        UserDaoHibernateImpl userDaoHibernateImpl = new UserDaoHibernateImpl();
         userDaoHibernateImpl.cleanUsersTable();
     }
 }
