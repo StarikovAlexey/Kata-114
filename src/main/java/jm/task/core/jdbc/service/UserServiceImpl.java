@@ -20,8 +20,7 @@ public class UserServiceImpl implements UserService {
         userDaoHibernateImpl.saveUser(name, lastName, age);
     }
 
-    public void removeUserById(long id) {
-    }
+    public void removeUserById(long id) {userDaoHibernateImpl.removeUserById(id);}
 
     public List<User> getAllUsers() {
         return userDaoHibernateImpl.getAllUsers();

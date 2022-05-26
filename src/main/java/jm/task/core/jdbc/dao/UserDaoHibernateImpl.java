@@ -12,11 +12,8 @@ import java.util.List;
 public class UserDaoHibernateImpl implements UserDao {
     private List<User> userList = new ArrayList<>();
 
-
     public UserDaoHibernateImpl() {
-
     }
-
 
     @Override
     public void createUsersTable() {
@@ -56,7 +53,13 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void removeUserById(long id) {
-
+        try (Session session = Util.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            session.createSQLQuery("DELETE FROM users WHERE id =:id").setParameter("id",id).executeUpdate();
+            System.out.println("User" + id + " удален из базы данных");
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
