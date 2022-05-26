@@ -17,6 +17,7 @@ public class Main {
         service.createUsersTable();
         userList.forEach(x -> service.saveUser(x.getName(), x.getLastName(), x.getAge()));
         service.getAllUsers();
+        service.removeUserById(2);
         service.cleanUsersTable();
         service.dropUsersTable();
 
