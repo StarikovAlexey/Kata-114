@@ -19,8 +19,8 @@ public class UserDaoHibernateImpl implements UserDao {
     public void createUsersTable() {
         try (Session session = Util.getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.createSQLQuery("CREATE TABLE IF NOT EXISTS users(ID int NOT NULL AUTO_INCREMENT,PRIMARY KEY (ID), " +
-                    "name varchar(255), lastname varchar(255), age tinyint);").executeUpdate();
+            session.createSQLQuery("CREATE TABLE IF NOT EXISTS User(ID int NOT NULL AUTO_INCREMENT,PRIMARY KEY (ID), " +
+                    "name varchar(255), lastname varchar(255), age tinyint)").executeUpdate();
         } catch (HibernateException e) {
             e.printStackTrace();
         }
@@ -30,7 +30,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void dropUsersTable() {
         try (Session session = Util.getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.createSQLQuery("DROP TABLE IF  EXISTS  users;").executeUpdate();
+            session.createSQLQuery("DROP TABLE IF  EXISTS  User").executeUpdate();
         } catch (HibernateException e) {
             e.printStackTrace();
         }
@@ -55,7 +55,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void removeUserById(long id) {
         try (Session session = Util.getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.createSQLQuery("DELETE FROM users WHERE id =:id").setParameter("id",id).executeUpdate();
+            session.createSQLQuery("DELETE FROM User WHERE id =:id").setParameter("id",id).executeUpdate();
             System.out.format("User %d удален из базы данных",id);
         } catch (HibernateException e) {
             e.printStackTrace();
