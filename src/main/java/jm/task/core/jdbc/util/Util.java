@@ -13,17 +13,22 @@ import java.sql.*;
 
 public class Util {
     private static SessionFactory sessionFactory;
+    private static String driver = "com.mysql.cj.jdbc.Driver";
+    private static String url = "jdbc:mysql://localhost:3306/kata_test";
+    private static String  user = "root";
+    private static String pass = "root";
+    private static String dialect = "org.hibernate.dialect.MySQL5Dialect";
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration();
                 Properties properties = new Properties();
-                properties.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-                properties.put(Environment.URL, "jdbc:mysql://localhost:3306/kata_test");
-                properties.put(Environment.USER, "root");
-                properties.put(Environment.PASS, "root");
-                properties.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
+                properties.put(Environment.DRIVER, driver);
+                properties.put(Environment.URL, url);
+                properties.put(Environment.USER, user);
+                properties.put(Environment.PASS, pass);
+                properties.put(Environment.DIALECT, dialect);
                 properties.put(Environment.SHOW_SQL, "false");
                 properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
                 configuration.setProperties(properties);
